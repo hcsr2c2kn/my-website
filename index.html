@@ -1,0 +1,545 @@
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>混声合唱団 Vox Nova Shinshu 設立・団員募集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Shinshu Nature Harmony (Warm Stone backgrounds, Emerald/Teal accents representing nature and fresh voices) -->
+    <!-- Application Structure Plan: The SPA uses a vertical scrolling narrative structure, now significantly expanded for depth. 
+         Flow: Hero -> Concept & Background (Ue-JOY, Vision, Repertoire) -> Message from Conductor (Personal connection & motivation) -> Activities & Goals -> Practice Schedule (What to expect) -> Conductor Profile -> FAQ (Overcoming barriers to entry) -> Recruitment. 
+         This extended flow provides a comprehensive understanding of the choir, answering potential questions before they are asked and building a strong emotional and logical case for joining. -->
+    <!-- Visualization & Content Choices: 
+         1. Concept (Multi-generational): Goal -> Illustrate target community. Viz -> Chart.js Doughnut. NO SVG.
+         2. Vox Nova Vision & Repertoire: Goal -> Show breadth of music. Viz -> Grid layout with Unicode icons. NO SVG.
+         3. Practice Schedule: Goal -> Set expectations. Viz -> Timeline/List style steps. NO SVG.
+         4. Conductor History: Goal -> Show track record. Viz -> Interactive JS Timeline. NO SVG.
+         5. FAQ: Goal -> Address concerns. Viz -> Interactive JS Accordion. NO SVG.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif; }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FAQ Accordion Styles */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* Arbitrary large number to allow content to show */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-emerald-200 selection:text-emerald-900">
+
+    <nav class="fixed w-full bg-stone-50/90 backdrop-blur-md border-b border-stone-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl tracking-tight text-emerald-800">混声合唱団 Vox Nova Shinshu</span>
+                </div>
+                <div class="hidden lg:flex items-center space-x-6 text-sm">
+                    <a href="#concept" class="text-stone-600 hover:text-emerald-700 font-medium transition-colors">コンセプト</a>
+                    <a href="#message" class="text-stone-600 hover:text-emerald-700 font-medium transition-colors">メッセージ</a>
+                    <a href="#activities" class="text-stone-600 hover:text-emerald-700 font-medium transition-colors">活動目標</a>
+                    <a href="#conductor" class="text-stone-600 hover:text-emerald-700 font-medium transition-colors">指導者</a>
+                    <a href="#faq" class="text-stone-600 hover:text-emerald-700 font-medium transition-colors">よくある質問</a>
+                    <a href="#join" class="px-4 py-2 rounded-full bg-emerald-700 text-white font-medium hover:bg-emerald-800 transition-colors">募集要項</a>
+                </div>
+                <!-- Mobile menu button placeholder -->
+                <div class="flex items-center lg:hidden">
+                    <span class="text-2xl cursor-pointer">☰</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto text-center">
+        <div class="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold text-sm mb-6 fade-in-up">
+            2026年4月 新規設立・第1期生大募集！
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-stone-900 mb-6 leading-tight fade-in-up" style="transition-delay: 100ms;">
+            混声合唱団Vox Nova Shinshu<br class="md:hidden">
+        </h1>
+        <p class="mt-6 text-xl text-stone-600 max-w-3xl mx-auto mb-10 leading-relaxed fade-in-up" style="transition-delay: 200ms;">
+            中学校の部活動地域移行の受け皿「うえJOY」認定団体として始動します。<br class="hidden md:block">
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 fade-in-up" style="transition-delay: 300ms;">
+            <a href="#join" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-white bg-emerald-700 hover:bg-emerald-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                団員募集について詳しく見る
+            </a>
+            <a href="#concept" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-stone-700 bg-white border border-stone-200 hover:bg-stone-50 transition-all duration-300">
+                私たちの理念を知る
+            </a>
+        </div>
+    </header>
+
+    <section id="concept" class="py-24 bg-white border-t border-stone-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-3xl font-bold text-emerald-800 mb-4">設立の背景とコンセプト</h2>
+                <div class="w-24 h-1 bg-emerald-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed">
+                    当合唱団は、上田市が進める地域クラブ「うえJOY」の認定団体として誕生しました。単なる部活動の代わりにとどまらず、学校の枠組みを越えたより専門的な音楽体験を提供できる場となることを目指しています。異なる学校の生徒たちや幅広い世代の方々が一つの場所に集い、新たなコミュニティが生まれる機会の設立を目指しています。</p>
+		        <p class="text-lg text-stone-600 max-w-3xl mx-auto leading-relaxed mt-4">
+                    団体名である「Vox Nova」は、ラテン語で新しい声を意味します。この名前には、これまでの枠にとらわれない新鮮なアプローチで音楽と向き合うという、以下のビジョンが込められています。
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto mb-24 fade-in-up">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-6 flex items-center justify-center">
+                        <span class="text-3xl mr-3">🌱</span>
+                        上田地域クラブ「うえJOY」
+                    </h3>
+                    <p class="text-stone-600 leading-relaxed text-left inline-block">
+                        当団体は、上田市教育委員会が運営主体となる上田地域クラブの基準を満たした認定団体として活動しています。この上田地域クラブは、小中学生を対象とした公募により「うえJOY」という親しみやすい愛称に決定されました。この愛称には、「上（うえ）を向いて行こう、皆でよろこび（JOY）を分かち合ったり、楽しんだりしたい」という子どもたちの純粋な思いが込められています。合唱という活動は、まさに顔を上げ、声を遠くへ響かせ、仲間とハーモニーを作り上げる喜びを分かち合う芸術です。
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-6 border-b border-stone-200 pb-4 text-center">
+                        合唱団のコンセプト
+                    </h3>
+                    
+                    <div class="group bg-white p-6 rounded-2xl border border-stone-100 shadow-sm hover:shadow-md transition-all duration-300 hover:border-emerald-200">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center text-2xl mr-4 group-hover:bg-emerald-100 transition-colors">🎼</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-stone-800 mb-2">長野県東信地区から、合唱のトレンドに沿った曲に取り組む</h4>
+                                <p class="text-stone-600 text-sm leading-relaxed text-left">
+                                    これまで長野県内の一般合唱団ではあまり取り上げられてこなかった、現在の合唱界のトレンドに積極的に取り組みます。例えば、国内外の現代の若手作曲家による斬新な和音構成やリズムを持つ楽曲、ルネサンス時代から現代までの幅広い音楽、多様なジャンルを横断するような作品など、多様な選曲に取り組める環境を作ります。東信地区から、長野県の合唱界全体に新しい刺激を与えるような団体を目指します。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group bg-white p-6 rounded-2xl border border-stone-100 shadow-sm hover:shadow-md transition-all duration-300 hover:border-emerald-200">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center text-2xl mr-4 group-hover:bg-emerald-100 transition-colors">🤝</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-stone-800 mb-2">多世代の団員による知見の共有</h4>
+                                <p class="text-stone-600 text-sm leading-relaxed text-left">
+                                    中学生からシニアまで、年齢も背景も異なるメンバーが集うことで、同世代だけの合唱団にはない音楽づくりを行います。互いの声と人生経験が交わることで、音楽表現に独自の深みがもたらされることも、私たちが目指す新しい声の形です。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="message" class="py-24 bg-stone-900 text-stone-100 relative overflow-hidden">
+        <!-- Abstract background elements -->
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-emerald-800 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-teal-800 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center fade-in-up">
+            <span class="text-emerald-400 font-bold tracking-widest text-sm uppercase mb-2 block">Message</span>
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">「なぜ今、東信で新しい合唱団なのか」</h2>
+            
+            <div class="text-left space-y-6 text-stone-300 leading-relaxed text-lg bg-stone-800/50 backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-stone-700">
+                <p>
+                    皆様、はじめまして。混声合唱団 Vox Nova Shinshu 指揮者の橋本颯生です。
+                </p>
+                <p>
+                    私は北海道で合唱を始め、その後長野県の大学へ進学し、同時に東京の合唱団にも所属して活動を続けてきました。様々な地域、様々な年代の合唱団で歌い、指揮を振る中で、強く感じたことがあります。
+                </p>
+                <p>
+                    それは、"地方にいても、最前線の合唱・音楽に触れられる場所が必要だ"ということです。そして同時に、大人と子どもがフラットに音楽を通して対話できる場所は、想像以上に豊かな響きを生み出すという事実です。
+                </p>
+                <p>
+                    中学校の部活動が地域へと移行していく今、これはピンチではなく、これまでにない全く新しい形の合唱コミュニティを創り出す最大のチャンスだと捉えています。学生は大人から技術や社会性を学び、大人は学生の純粋なエネルギーからインスピレーションを受ける。そして、全国で今まさに歌われている最先端の楽曲にも目を向ける。
+                </p>
+                <p>
+                    この上田の地から、長野県の合唱界に新しい風を吹き込むような、熱く、そして温かい合唱団を一緒に創りませんか？ 経験の有無は問いません。歌うことが好き、新しいことに挑戦したい、そんなあなたの声を待っています。
+                </p>
+                <div class="pt-6 mt-6 border-t border-stone-700 flex items-center justify-end">
+                    <div class="text-right">
+                        <p class="font-bold text-white text-xl">橋本 颯生</p>
+                        <p class="text-sm text-emerald-400">混声合唱団 Vox Nova Shinshu 指揮者</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="activities" class="py-24 bg-stone-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-emerald-600 font-bold tracking-widest text-sm uppercase mb-2 block">Activities</span>
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">活動内容と目標</h2>
+                <div class="w-24 h-1 bg-emerald-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg text-stone-600 max-w-3xl mx-auto">
+                    日々の練習の成果を発表し、社会と繋がる場として、明確な目標を持って活動します。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in-up relative">
+                <!-- Connecting line for desktop -->
+                <div class="hidden md:block absolute top-1/2 left-10 right-10 h-1 bg-emerald-200 -z-10 transform -translate-y-1/2"></div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-md border-t-8 border-emerald-400 relative z-10 flex flex-col h-full transform transition-transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-3xl mb-6 mx-auto border-4 border-white shadow-sm">🎫</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-4 text-center">1. 地域イベントへの参加</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed flex-grow">
+                        長野県合唱祭、東信合唱祭、長野県ヴォーカル・アンサンブルフェスティバルといった地域の主要な音楽イベントに積極的に参加します。地元の皆様に演奏を披露することで、地域に根差した音楽活動を展開します。地域の文化振興に直接的に貢献するとともに、子どもたちにとっての晴れ舞台を積極的に作っていきます。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-md border-t-8 border-emerald-600 relative z-10 flex flex-col h-full transform transition-transform hover:-translate-y-2 mt-8 md:mt-0">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-3xl mb-6 mx-auto border-4 border-white shadow-sm">🏆</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-4 text-center">2. コンクールへの挑戦</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed flex-grow">
+                        技術の向上と明確な目標設定のため、全日本合唱コンクールへ参加し、長野県大会を突破して上位大会（中部大会・全国大会）への進出を目指します。現在、東信地区においてコンクールに参加している団体は、小学校・高校の部活動を除くと当団体以外にないという現状があります。私たちは、地域の一般合唱団としての新たなモデルケースとなり、コンクールという客観的な評価の場に挑むことで、生徒の実績を作り、団員のモチベーションを高めていきます。
+
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-md border-t-8 border-emerald-800 relative z-10 flex flex-col h-full transform transition-transform hover:-translate-y-2 mt-8 md:mt-0">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-3xl mb-6 mx-auto border-4 border-white shadow-sm">🎭</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-4 text-center">3. 単独定期演奏会の開催</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed flex-grow">
+                        活動が軌道に乗れば、当団単独での演奏会の開催を目指します。合唱の魅力を存分に伝える多彩なプログラムを用意し、地域の方々に心から楽しんでいただける音楽会を創り上げます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section id="conductor" class="py-24 bg-stone-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-emerald-600 font-bold tracking-widest text-sm uppercase mb-2 block">Conductors</span>
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">指導者プロフィール</h2>
+                <div class="w-24 h-1 bg-emerald-500 mx-auto rounded-full mb-6"></div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 items-start fade-in-up bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-stone-100">
+                <div class="md:w-1/3 text-center md:text-left">
+                    <img src="1727609842791.jpg" alt="橋本 颯生" class="w-32 h-32 object-cover object-top rounded-full mx-auto md:mx-0 mb-6 border-4 border-emerald-100 shadow-inner" onerror="this.src='https://placehold.co/128x128/e7e5e4/a8a29e?text=Photo'">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-1">橋本 颯生</h3>
+                    <p class="text-emerald-700 font-medium mb-6">Hashimoto Satsuki</p>
+                    <div class="text-sm text-stone-600 space-y-3">
+                        <p class="pb-3 border-b border-stone-100">現在、信州大学大学院在籍しています。</p>
+                        <p class="pb-3 border-b border-stone-100">高校生時代に合唱を始めました。高校では全日本合唱コンクール全国大会、NHK 全国学校音楽コンクール 全国コンクール、全国高等学校総合文化祭 合唱部門に出場経験があります。</p>
+                        <p>東京の合唱団でも歌っています。</p>
+                    </div>
+                </div>
+
+                <div class="md:w-2/3 w-full">
+                    <h4 class="font-bold text-stone-800 mb-6 text-center md:text-left flex items-center justify-center md:justify-start">
+                        <span class="text-xl mr-2">✨</span> 経歴・実績
+                    </h4>
+                    
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 shadow-inner text-stone-700 leading-relaxed text-[15px] space-y-4">
+                        <p>2022年12月より現在まで、長野大学合唱サークルひびき にて常任指揮者を務める。</p>
+                        <p>2023年にアンサンブルグループ dolce con espressivo を立ち上げ、長野県ヴォーカル･アンサンブルフェスティバルにてエメラルド賞（50団体中4位）を受賞。</p>
+                        <p>2024年に長野県インターカレッジ女声合唱団を指揮者として設立。全日本合唱コンクール長野県大会にて金賞・長野県知事賞・長野市教育委員会賞を受賞し、中部支部大会で銀賞を受賞。また、同年度の長野県ヴォーカル･アンサンブルフェスティバルではダイヤモンド賞（62団体中1位）を受賞。</p>
+                        <p>2025年に長野県合唱祭にて中信地区合同ステージを指揮。<br>2025年7月より、上田市立第六中学校合唱部にて外部指導者を務める。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-12 items-start fade-in-up bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-stone-100 mt-12">
+                <div class="md:w-1/3 text-center md:text-left">
+                    <img src="kawata yoshiko.JPG" alt="河田 良子" class="w-32 h-32 object-cover object-top rounded-full mx-auto md:mx-0 mb-6 border-4 border-emerald-100 shadow-inner" onerror="this.src='https://placehold.co/128x128/e7e5e4/a8a29e?text=Photo'">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-1">河田 良子</h3>
+                    <p class="text-emerald-700 font-medium mb-6">Kawata Yoshiko</p>
+                    <div class="text-sm text-stone-600 space-y-3">
+                        <p class="pb-3 border-b border-stone-100">東京音楽大学器楽(ピアノ)科卒業。<br>音楽教師を退職後、ピアノ・ソルフェージュを教える。</p>
+                        <p class="pb-3 border-b border-stone-100">2003年より再び講師として小・中・特別支援学校へ勤務。</p>
+                        <p>現在、上田市立第六中学校合唱部外部指導講師、上田市少年少女合唱団指導部・指揮者。蓮沼勇一氏が主催する「夢現塾」に参加し研鑽を積む。上田自由塾「かわちゃんの歌の広場」「かわちゃんの合唱を楽しもう」講師。</p>
+                    </div>
+                </div>
+
+                <div class="md:w-2/3 w-full">
+                    <h4 class="font-bold text-stone-800 mb-6 text-center md:text-left flex items-center justify-center md:justify-start">
+                        <span class="text-xl mr-2">✨</span> 経歴・実績
+                    </h4>
+                    
+                    <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 shadow-inner text-stone-700 leading-relaxed text-[15px] space-y-4">
+                        <p>1988年信州国際音楽村児童合唱団結成時より、故村谷達也氏(当時 全日本合唱連盟常務理事)とともに10年間指導を担当。その間、指揮法並びに合唱全般について村谷達也氏に師事。</p>
+                        <p>1991年、1992年全日本少年少女合唱祭にピアニストとして参加。</p>
+                        <p>2009年より上田市少年少女合唱団指導部・指揮者として指導に携わる。</p>
+                        <p>2016年オペラ「夕鶴」(演出 市川右近、主演 佐藤しのぶ)、2018年舞台「家族のはなし」(原作 鉄拳)、2019年オリンピックコンサート、第4回上田市民オペラ「魔笛」などの児童合唱の指導を担当。</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-white border-t border-stone-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-emerald-600 font-bold tracking-widest text-sm uppercase mb-2 block">Q & A</span>
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">よくある質問</h2>
+                <div class="w-24 h-1 bg-emerald-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-4 fade-in-up" id="faq-container">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item border border-stone-200 rounded-xl bg-stone-50 overflow-hidden cursor-pointer">
+                    <div class="faq-question flex justify-between items-center p-5 text-stone-800 font-bold hover:text-emerald-700 transition-colors">
+                        <span>Q. 合唱や音楽の経験が全くありませんが、入団できますか？</span>
+                        <span class="faq-icon text-xl text-stone-400">＋</span>
+                    </div>
+                    <div class="faq-answer px-5 text-stone-600 text-sm bg-white">
+                        A. もちろんです！経験の有無は一切問いません。発声の基本や楽譜の読み方から丁寧に指導します。合唱は、声という自分だけの楽器を使って仲間と作る音楽です。「歌うことが好き」「新しいことを始めたい」という気持ちがあれば大歓迎です。
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item border border-stone-200 rounded-xl bg-stone-50 overflow-hidden cursor-pointer">
+                    <div class="faq-question flex justify-between items-center p-5 text-stone-800 font-bold hover:text-emerald-700 transition-colors">
+                        <span>Q. 入団にあたってオーディションはありますか？</span>
+                        <span class="faq-icon text-xl text-stone-400">＋</span>
+                    </div>
+                    <div class="faq-answer px-5 text-stone-600 text-sm bg-white">
+                        A. 入団のためのオーディションはありません。どなたでもご参加いただけます。パート分け（ソプラノ・アルト・テノール・バス）の際にご自身の声域を確認するための簡単な発声などは行いますが、選考ではありませんのでご安心ください。
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item border border-stone-200 rounded-xl bg-stone-50 overflow-hidden cursor-pointer">
+                    <div class="faq-question flex justify-between items-center p-5 text-stone-800 font-bold hover:text-emerald-700 transition-colors">
+                        <span>Q. 仕事や勉強、他の部活動と両立できますか？（毎回参加できなくても大丈夫ですか？）</span>
+                        <span class="faq-icon text-xl text-stone-400">＋</span>
+                    </div>
+                    <div class="faq-answer px-5 text-stone-600 text-sm bg-white">
+                        A. はい、両立可能です。多世代コミュニティであるため、それぞれのライフスタイル（部活、テスト期間、仕事の都合など）を尊重します。出欠席については柔軟に対応しますので、無理のない範囲でご参加ください。練習の録音共有などのサポート体制も整える予定です。
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item border border-stone-200 rounded-xl bg-stone-50 overflow-hidden cursor-pointer">
+                    <div class="faq-question flex justify-between items-center p-5 text-stone-800 font-bold hover:text-emerald-700 transition-colors">
+                        <span>Q. 親子で入団することは可能ですか？</span>
+                        <span class="faq-icon text-xl text-stone-400">＋</span>
+                    </div>
+                    <div class="faq-answer px-5 text-stone-600 text-sm bg-white">
+                        A. 大歓迎です！中学生の「地域クラブ」としての機能も持ち合わせていますので、お子様の活動の場としてだけでなく、保護者の方も同じ団員として舞台に立ち、一緒に音楽を楽しむことができます。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" class="py-24 bg-emerald-900 text-white relative overflow-hidden">
+        <!-- Abstract background elements -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjMDY1ZjQ2IiAvPgo8cGF0aCBkPSJNMCAwTDggOFpNOCAwTDAgOFoiIHN0cm9rZT0iIzBlNzk1YSIgc3Ryb2tlLXdpZHRoPSIxIiAvPgo8L3N2Zz4=')] opacity-10"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="text-emerald-300 font-bold tracking-widest text-sm uppercase mb-2 block">Recruitment</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-emerald-50 mb-4">第一期生 募集要項</h2>
+                <div class="w-24 h-1 bg-emerald-400 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg text-emerald-200 max-w-3xl mx-auto leading-relaxed">
+                    2026年4月の活動開始に向けて、共に新しい合唱団を創り上げるオープニングメンバーを大募集しています。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in-up">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-xl">
+                    <div class="flex items-center mb-6 border-b border-white/10 pb-4">
+                        <span class="text-4xl mr-4">👥</span>
+                        <div>
+                            <h3 class="text-xl font-bold">募集対象</h3>
+                            <p class="text-emerald-200 text-sm">経験不問・初心者歓迎</p>
+                        </div>
+                    </div>
+                    <p class="text-emerald-50 text-xl font-bold mb-2">中学生 〜 シニア</p>
+                    <p class="text-emerald-100/80 text-sm leading-relaxed">
+                        新中学1年生〜3年生、高校生、大学生、社会人、中学生の保護者の方など、幅広い年代を歓迎します。<br>
+                        ※中学生にとっては、休日の部活動の代わりとなる「地域クラブ（うえJOY認定団体）」として機能します。
+                    </p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-xl">
+                    <div class="flex items-center mb-6 border-b border-white/10 pb-4">
+                        <span class="text-4xl mr-4">🕒</span>
+                        <div>
+                            <h3 class="text-xl font-bold">練習日時 (予定)</h3>
+                            <p class="text-emerald-200 text-sm">週2回程度</p>
+                        </div>
+                    </div>
+                    <ul class="text-emerald-50 space-y-4 font-medium text-lg">
+                        <li class="flex items-center"><span class="w-16 inline-block text-emerald-300">水曜日</span> 19:00 〜 21:00</li>
+                        <li class="flex items-center"><span class="w-16 inline-block text-emerald-300">土曜日</span> 13:00 〜 16:30</li>
+                    </ul>
+                    <p class="text-xs text-emerald-200/60 mt-4">※今後の状況や会場確保の都合により変更となる場合があります。</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-xl">
+                    <div class="flex items-center mb-6 border-b border-white/10 pb-4">
+                        <span class="text-4xl mr-4">📍</span>
+                        <div>
+                            <h3 class="text-xl font-bold">練習場所</h3>
+                            <p class="text-emerald-200 text-sm">長野県上田市内</p>
+                        </div>
+                    </div>
+                    <p class="text-emerald-50 text-xl font-bold mb-2">上田市中央公民館</p>
+                    <p class="text-emerald-100/80 text-sm leading-relaxed">
+                        を中心に、上田市内の公民館や公共施設を利用して練習を行います。<br>
+                        ※駐車場完備の施設を基本とします。
+                    </p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-xl relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 text-9xl opacity-10">¥</div>
+                    <div class="flex items-center mb-6 border-b border-white/10 pb-4 relative z-10">
+                        <span class="text-4xl mr-4">💰</span>
+                        <div>
+                            <h3 class="text-xl font-bold">会費等</h3>
+                            <p class="text-emerald-200 text-sm">持続可能な運営のために</p>
+                        </div>
+                    </div>
+                    <div class="mb-4 relative z-10">
+                        <span class="text-sm text-emerald-200 block mb-1">月会費</span>
+                        <p class="text-emerald-50 text-4xl font-extrabold flex items-baseline">
+                            3,000<span class="text-lg font-normal ml-1">円</span>
+                        </p>
+                    </div>
+                    <ul class="text-xs text-emerald-200/80 space-y-2 relative z-10 leading-relaxed">
+                        <li>※別途、各自の楽譜代や、演奏会開催時の参加費、イベント（合唱祭等）参加費がかかる場合があります。</li>
+                        <li class="bg-emerald-800/50 p-2 rounded border border-emerald-700">💡 <strong>設立から2年間は上田市からの補助</strong>（地域クラブ活動支援）が出るため、実際の費用負担が軽減される見込みです。</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center fade-in-up bg-stone-900/40 p-10 rounded-3xl border border-stone-700/50">
+                <h3 class="text-2xl font-bold mb-6 text-white">まずは、お気軽にお問い合わせください</h3>
+                <p class="text-emerald-100/80 mb-8 max-w-2xl mx-auto">
+                    「少し興味がある」「見学だけしてみたい」「質問がある」など、どのようなことでも構いません。皆様からのご連絡を心よりお待ちしております。
+                </p>
+                <div class="flex justify-center mb-10">
+                    <a href="https://forms.gle/qNzjQRRASkxY1Qxf6" target="_blank" rel="noopener noreferrer" class="px-8 py-4 text-lg font-bold rounded-full text-emerald-900 bg-emerald-400 hover:bg-emerald-300 shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 transform hover:-translate-y-1 inline-block">
+                        入団申し込み・見学希望
+                    </a>
+                </div>
+                
+                <div class="inline-block bg-stone-800/80 backdrop-blur-sm border border-stone-600/50 rounded-2xl p-6 text-left text-emerald-50 shadow-inner max-w-md w-full">
+                    <h4 class="font-bold text-emerald-300 mb-4 flex items-center"><span class="mr-2 text-xl">✉️</span> お問い合わせ（ご質問など）</h4>
+                    <div class="space-y-3 text-sm md:text-base">
+                        <div class="flex items-center justify-between border-b border-stone-700/50 pb-2">
+                            <span class="text-emerald-200/70 text-xs tracking-wider">代表</span>
+                            <span class="font-medium tracking-widest">河田 良子</span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-stone-700/50 pb-2">
+                            <span class="text-emerald-200/70 text-xs tracking-wider">E-mail</span>
+                            <a href="mailto:satsuki.public@gmail.com" class="font-medium hover:text-emerald-400 transition-colors">satsuki.public@gmail.com</a>
+                        </div>
+                        <div class="flex items-center justify-between pb-1">
+                            <span class="text-emerald-200/70 text-xs tracking-wider">TEL</span>
+                            <a href="tel:070-1056-7371" class="font-medium hover:text-emerald-400 transition-colors">070-1056-7371</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-stone-950 text-stone-400 py-12 border-t border-stone-800">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-center md:text-left mb-6 md:mb-0">
+                <p class="font-extrabold text-stone-200 text-xl tracking-wider mb-2">混声合唱団 Vox Nova Shinshu</p>
+                <p class="text-sm text-stone-500">2026年4月設立 - 上田地域クラブ「うえJOY」認定団体</p>
+            </div>
+            <div class="flex space-x-6 text-sm">
+                <a href="#concept" class="hover:text-emerald-400 transition-colors">コンセプト</a>
+                <a href="#activities" class="hover:text-emerald-400 transition-colors">活動目標</a>
+                <a href="#faq" class="hover:text-emerald-400 transition-colors">よくある質問</a>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 mt-8 pt-8 border-t border-stone-800/50 text-center">
+            <p class="text-xs mt-4 opacity-50">&copy; 2026 混声合唱団 Vox Nova Shinshu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 3. FAQ Accordion Logic
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close all other items (optional: remove this if you want multiple open at once)
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector('.faq-icon').textContent = '＋';
+                        }
+                    });
+
+                    // Toggle current item
+                    item.classList.toggle('active');
+                    const icon = item.querySelector('.faq-icon');
+                    if (item.classList.contains('active')) {
+                        icon.textContent = '－';
+                    } else {
+                        icon.textContent = '＋';
+                    }
+                });
+            });
+
+            // 4. Scroll Animation Observer (Fade In Up)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-up').forEach((elem) => {
+                observer.observe(elem);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -33,6 +33,10 @@
     .achievement-head{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:26px}.achievement-year{font-size:13px;color:var(--muted);margin-bottom:7px}.achievement-head h3{font-size:21px;font-weight:500}.achievement-category{font-size:14px;margin-top:7px}.achievement-award{font-family:var(--serif);font-size:33px;color:var(--orange);white-space:nowrap}.achievement-photo{max-width:680px}.achievement-photo a{display:block}.achievement-photo img{width:100%;height:auto;border:1px solid var(--line)}.achievement-photo figcaption{margin-top:10px;font-size:12px;color:var(--muted)}
     @media(max-width:760px){.achievement-head{gap:15px;margin-bottom:22px}.achievement-head h3{font-size:18px}.achievement-category{font-size:12px}.achievement-award{font-size:27px}.achievement-year{font-size:12px}}
   </style>
+  <style>
+    .performed-repertoire{padding-top:23px;border-top:1px solid var(--line);margin-bottom:30px}.performed-repertoire h4{font-size:15px;font-weight:500;margin:0 0 7px}.performed-repertoire p{margin:0}.performed-works{margin:21px 0}.performed-works>div{display:grid;grid-template-columns:60px 1fr;gap:14px;margin-bottom:24px}.performed-works dt{font-size:12px;color:var(--muted);padding-top:2px}.work-source{font-size:13px;color:var(--muted)}.performed-repertoire .work-titles{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:5px}.work-titles a{color:var(--green);font-size:16px}.performed-repertoire .work-credit{font-size:12px;color:var(--muted);margin-top:7px}.social-links{display:flex;flex-wrap:wrap;gap:8px 23px;margin-top:14px;font-size:13px;color:var(--green)}
+    @media(max-width:760px){html{scroll-padding-top:165px}.nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px}.nav a{font-size:12px;text-align:center}.performed-works>div{grid-template-columns:46px 1fr;gap:10px}.work-source{font-size:12px}.work-titles a{font-size:14px}.performed-repertoire .work-credit{font-size:11px}.social-links{font-size:12px;gap:8px 18px}}
+  </style>
 </head>
 <body>
   <a class="skip" href="#main">本文へ移動</a>
@@ -40,7 +44,7 @@
     <div class="wrap header-inner">
       <a class="brand" href="#top" aria-label="Vox Nova Shinshu トップへ"><small>混声合唱団</small><strong>Vox Nova Shinshu</strong></a>
       <nav class="nav" aria-label="メインナビゲーション">
-        <a href="#concept">団について</a><a href="#festival">出演予定</a><a href="#practice">練習日程</a><a href="#conductor">指導者</a><a href="#join">見学・入団</a>
+        <a href="#concept">団について</a><a href="#history">活動実績</a><a href="#festival">出演予定</a><a href="#practice">練習日程</a><a href="#conductor">指導者</a><a href="#join">見学・入団</a>
       </nav>
     </div>
   </header>
@@ -88,6 +92,15 @@
           <div class="achievement-head">
             <div><p class="achievement-year">2026年度</p><h3>長野県合唱コンクール</h3><p class="achievement-category">大学職場一般部門 室内合唱の部</p></div>
             <p class="achievement-award">銅賞</p>
+          </div>
+          <div class="performed-repertoire">
+            <h4>演奏曲目</h4>
+            <p class="small">曲名からYouTubeの演奏動画を別タブで開けます。</p>
+            <dl class="performed-works">
+              <div><dt>課題曲</dt><dd><p class="work-source">女声合唱とピアノのための『花に寄せて』から</p><p class="work-titles"><a href="https://www.youtube.com/watch?v=59V6I5eBGAA&amp;list=PLBbk_OE7MKks&amp;index=1" target="_blank" rel="noopener noreferrer">『Ⅶ. ばら･きく･なずな―母に捧ぐ―』<span aria-hidden="true"> ↗</span></a></p><p class="work-credit">星野富弘 作詩／新実徳英 作曲</p></dd></div>
+              <div><dt>自由曲</dt><dd><p class="work-source">少年少女／女声のための合唱組曲『みち』から</p><p class="work-titles"><a href="https://www.youtube.com/watch?v=pzToP7YuvN8&amp;list=PLBbk_OE7MKks&amp;index=2" target="_blank" rel="noopener noreferrer">『みち 1』<span aria-hidden="true"> ↗</span></a><a href="https://www.youtube.com/watch?v=JoM0ihUlkSY&amp;list=PLBbk_OE7MKks&amp;index=3" target="_blank" rel="noopener noreferrer">『みち 12』<span aria-hidden="true"> ↗</span></a></p><p class="work-credit">谷川俊太郎 作詩／鈴木輝昭 作曲</p></dd></div>
+            </dl>
+            <a class="text-link" href="https://youtube.com/playlist?list=PLBbk_OE7MKks&amp;si=FH0R_WHD39gvklCu" target="_blank" rel="noopener noreferrer">YouTubeの演奏動画一覧<span aria-hidden="true">↗</span><span class="small">（別タブ）</span></a>
           </div>
           <figure class="achievement-photo">
             <a href="award-2026-nagano-choral-competition.jpg" target="_blank" rel="noopener noreferrer" aria-label="2026年度 長野県合唱コンクールの賞状の写真を拡大（別タブ）"><img src="award-2026-nagano-choral-competition.jpg" alt="2026年度 長野県合唱コンクール 大学職場一般部門 室内合唱の部 銅賞の賞状。Vox Nova Shinshu宛。" width="4032" height="2268" loading="lazy"></a>
@@ -176,7 +189,7 @@
               <p>2023年、dolce con espressivoを設立。長野県ヴォーカル･アンサンブルフェスティバルでエメラルド賞（50団体中4位）。</p>
               <p>2024年、長野県インターカレッジ女声合唱団を設立・指揮。全日本合唱コンクール長野県大会で金賞・長野県知事賞・長野市教育委員会賞、中部支部大会で銀賞。同年度の長野県ヴォーカル･アンサンブルフェスティバルでダイヤモンド賞（62団体中1位）。</p>
               <p>2025年、長野県合唱祭の中信地区合同ステージを指揮。長野県インターカレッジ女声合唱団を指揮し、全日本合唱コンクール長野県大会で金賞・長野県知事賞・岡谷市教育委員会賞、中部支部大会で銅賞。上田市立第六中学校合唱部の外部指導者を務める。</p>
-              <p class="memberships">東信合唱連盟 理事。長野県合唱連盟 中学校部活動地域展開ワーキンググループ メンバー。chorusnium、Le Relais、合唱団 裡なる手触り 団員。</p>
+              <p class="memberships">東信合唱連盟 理事。長野県合唱連盟 中学校部活動地域展開ワーキンググループ メンバー。</p>
             </details>
           </article>
           <article class="person">
@@ -224,7 +237,7 @@
       </div>
     </section>
   </main>
-  <footer class="wrap footer"><div class="footer-inner"><div><p class="brand-name">Vox Nova Shinshu</p><p>混声合唱団　長野県上田市</p></div><div class="footer-meta"><a href="#top">ページの先頭へ ↑</a><p>掲載情報：2026年11月19日更新</p><p>© <span id="copyright-year">2026</span> Vox Nova Shinshu</p></div></div></footer>
+  <footer class="wrap footer"><div class="footer-inner"><div><p class="brand-name">Vox Nova Shinshu</p><p>混声合唱団　長野県上田市</p><nav class="social-links" aria-label="演奏動画・SNS"><a href="https://youtube.com/playlist?list=PLBbk_OE7MKks&amp;si=FH0R_WHD39gvklCu" target="_blank" rel="noopener noreferrer" aria-label="YouTubeの演奏動画一覧（別タブ）">YouTube（演奏動画） ↗</a><a href="https://x.com/Vox_Nova_?s=20" target="_blank" rel="noopener noreferrer" aria-label="Xの活動のお知らせ（別タブ）">X（活動のお知らせ） ↗</a></nav></div><div class="footer-meta"><a href="#top">ページの先頭へ ↑</a><p>掲載情報：2026年11月19日更新</p><p>© <span id="copyright-year">2026</span> Vox Nova Shinshu</p></div></div></footer>
   <script>
     (() => {
       const now = Date.now();
